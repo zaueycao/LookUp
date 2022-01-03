@@ -20,7 +20,7 @@ class LookUp(tk.Tk):
         container.configure(bg=BG_COLOR)
 
         self.frames = {}
-        for f in (MainPage, LookUpPage, AddPage, DisplayAllPage):
+        for f in (MainPage, LookUpPage, AddPage, EditPage, DisplayAllPage):
             frame = f(container, self)
             self.frames[f] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -55,7 +55,7 @@ class MainPage(tk.Frame):
         buttons = []
         buttons.append(("Look Up", "Search for the position of the primer in the box.", LookUpPage, 0, 1, 1))
         buttons.append(("Add a Primer", "Add a primer. If primer exists, position will be shown.", AddPage, 1, 1, 2))
-        buttons.append(("Edit", "Edit the details of the primer.", LookUpPage, 2, 2, 1))
+        buttons.append(("Edit", "Edit the details of the primer.", EditPage, 2, 2, 1))
         buttons.append(("Display All", "See the layout of all the boxes.", DisplayAllPage, 3, 2, 2))
 
         # Loop is used to create multiple Radiobuttons
@@ -228,6 +228,17 @@ class DisplayAllPage(tk.Frame):
         gobackFrame.pack(side=BOTTOM, padx=15,pady=(0,15))
 
         Button(gobackFrame, text="Go Back", width=10, height=2, font=("Georgia", 20), borderwidth=3, highlightcolor="white", bg="yellow", fg="snow", command= lambda: controller.show_frame(MainPage)).pack()
+class EditPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        page_label = tk.Label(self, text="Edit", font=LG_FONT)
+        page_label.pack(padx=10, pady=10)
 
+        tableFrame = Frame(self, padx=5, width=200, height=200,
+                            pady=5, background=BG_COLOR, borderwidth=3)
+        gobackFrame = Frame(self, padx=5, pady=5, background=BG_COLOR, borderwidth=0)
+        gobackFrame.pack(side=BOTTOM, padx=15,pady=(0,15))
+
+        Button(gobackFrame, text="Go Back", width=10, height=2, font=("Georgia", 20), borderwidth=3, highlightcolor="white", bg="yellow", fg="snow", command= lambda: controller.show_frame(MainPage)).pack()
 app = LookUp()
 app.mainloop()
